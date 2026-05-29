@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: test-api
+spec:
+  host: {{ .Values.service.name }}
+  subsets:
+  {{- range .Values.versions }}
+  - name: {{ .name }}
+    labels:
+      version: {{ .name }}
+{{- end }}
