@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ghcr.io/${{ github.actor }}/bootstrap-minikube/python-api
+  IMAGE_NAME: ghcr.io/amelgannoun/bootstrap-minikube/python-api
 
 jobs:
   build-and-push:
