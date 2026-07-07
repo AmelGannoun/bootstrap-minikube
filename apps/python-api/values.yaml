@@ -1,7 +1,7 @@
 image:
-  repository: test-api
+  repository: ghcr.io/amelgannoun/bootstrap-minikube/python-api
   tag: latest
-  pullPolicy: Never
+  pullPolicy: Always
 
 service:
   name: test-api-service

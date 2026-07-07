@@ -24,6 +24,8 @@ spec:
         prometheus.io/port: {{ $.Values.service.targetPort | quote }}
       {{- end }}
     spec:
+      imagePullSecrets:
+      - name: ghcr-credentials
       containers:
       - name: test-api
         image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
