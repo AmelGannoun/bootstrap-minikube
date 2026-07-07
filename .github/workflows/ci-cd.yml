@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/python-api
+  IMAGE_NAME: ghcr.io/${{ github.actor }}/bootstrap-minikube/python-api
 
 jobs:
   build-and-push:
@@ -17,7 +17,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-      security-events: write
 
     steps:
       - name: Checkout repository
@@ -34,7 +33,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.IMAGE_NAME }}
           tags: |
             type=sha,prefix=,format=short
             type=raw,value=latest,enable={{is_default_branch}}
@@ -56,8 +55,8 @@ jobs:
           sudo apt-get install trivy -y
 
       - name: Pull image for scanning
-        run: docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: docker pull ${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Scan image with Trivy
         run: |
-          trivy image --severity HIGH,CRITICAL --exit-code 0 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          trivy image --severity HIGH,CRITICAL --exit-code 0 ${{ env.IMAGE_NAME }}:${{ github.sha }}
