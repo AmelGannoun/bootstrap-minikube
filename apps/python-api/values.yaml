@@ -35,13 +35,22 @@ hpa:
 probes:
   liveness:
     path: /health
-    initialDelaySeconds: 10
+    initialDelaySeconds: 30 
     periodSeconds: 15
+    timeoutSeconds: 5        
+    failureThreshold: 3
   readiness:
     path: /ready
-    initialDelaySeconds: 5
+    initialDelaySeconds: 20
     periodSeconds: 10
-
+    timeoutSeconds: 3       
+    failureThreshold: 3
+  startup:
+    enabled: true
+    path: /health
+    periodSeconds: 10
+    failureThreshold: 30
+    
 istio:
   gateway:
     name: platform-gateway
