@@ -55,8 +55,8 @@ jobs:
           sudo apt-get install trivy -y
 
       - name: Pull image for scanning
-        run: docker pull ${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: docker pull ${{ env.IMAGE_NAME }}:latest
 
       - name: Scan image with Trivy
         run: |
-          trivy image --severity HIGH,CRITICAL --exit-code 0 ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          trivy image --severity HIGH,CRITICAL --exit-code 0 ${{ env.IMAGE_NAME }}:latest
