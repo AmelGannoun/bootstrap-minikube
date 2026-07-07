@@ -51,21 +51,6 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+          format: 'table'
           severity: 'CRITICAL,HIGH'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-
-      - name: Check if SARIF file exists
-        if: always()
-        run: |
-          ls -la trivy-results.sarif || echo "SARIF file not found"
-          cat trivy-results.sarif || echo "Cannot read SARIF file"
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        if: always() && hashFiles('trivy-results.sarif') != ''
-        with:
-          sarif_file: 'trivy-results.sarif'
+          exit-code: '1'
