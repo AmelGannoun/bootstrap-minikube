@@ -70,14 +70,3 @@ This document details the iterative load testing process performed on the Python
 | **Timeouts** | 0 | 65 | 1 | 34 |
 | **P95 Latency** | 2.4s | 6.6s | 5.9s | 7.1s |
 
----
-
-## Identified Bottlenecks & Next Steps for Production
-
-While the iterative fixes significantly improved stability, the remaining 35% failure rate highlights architectural limits of the current POC setup. In a real production environment, the following would be implemented:
-
-1. **Database Connection Pooling:** Implement PgBouncer or SQLAlchemy connection pooling to resolve the root cause of the 500 errors and allow higher concurrency.
-2. **Redis Caching:** Cache responses for the `/data` endpoint to drastically reduce database read load.
-3. **Global Rate Limiting:** Move the rate limit from the pod-level (EnvoyFilter) to the Istio Gateway level to protect the entire cluster from DDoS-like spikes.
-4. **Proper Cluster Sizing:** Minikube (4 CPU / 8GB RAM) is insufficient for load testing. Proper node sizing and Pod Disruption Budgets (PDB) are required.
-5. **429 HTTP Status:** Configure the Istio rate limiter to return `429 Too Many Requests` instead of `503 Service Unavailable` for better client-side handling.
