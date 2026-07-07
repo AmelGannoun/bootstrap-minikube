@@ -73,7 +73,7 @@ postgres:
   database: poc_api
   username: poc_api
   password: poc_api_password
-  seedRows: 50
+  seedRows: 10
   service:
     name: postgres
     port: 5432
