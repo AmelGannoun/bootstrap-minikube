@@ -36,6 +36,8 @@ spec:
         - name: APP_MESSAGE
           value: {{ .message | quote }}
         {{- if $.Values.postgres.enabled }}
+        - name: MAX_DELAY_SECONDS
+          value: "0.2"  # Réduit de 2.0 à 0.2 secondes
         - name: POSTGRES_DSN
           valueFrom:
             secretKeyRef:
