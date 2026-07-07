@@ -49,5 +49,4 @@ spec:
               header:
                 key: x-local-rate-limit
                 value: "true"
-            status:
-              code: TooManyRequests
+            response_code_to_use: 429
